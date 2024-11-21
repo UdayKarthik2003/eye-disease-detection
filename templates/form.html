@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eye Disease Detection</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #9999ff, #ff66ff);
+            background-image: url('/static/img.jpg');
+
+
+
+           /* background-image: url('img.jpg');*/
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: rgba(44, 62, 80, 0.8);  
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 2.5em;
+            letter-spacing: 1px;
+            position: absolute;
+            top: 20px;
+            width: 100%;
+        }
+
+        /* Main Container */
+        .container {
+            background: linear-gradient(to right, #4a90e2, #50c9c3);
+            max-width: 500px;
+            padding: 40px;
+            /*background-color: rgba(255, 255, 255, 0.9); */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Form Wrapper */
+        .form-wrapper {
+            margin-bottom: 20px;
+        }
+
+        /* File Input Styling */
+        input[type="file"] {
+            font-size: 1em;
+            padding: 10px;
+            border: 2px solid #3498db;
+            border-radius: 5px;
+            width: 80%;
+            margin: 10px 0;
+            cursor: pointer;
+            background-color: #f4f6f9;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="file"]:hover {
+            border-color: #2980b9;
+        }
+
+        /* Button Styling */
+        button {
+            background-color: #3498db;
+            color: white;
+            font-size: 1.2em;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Result Display */
+        #result {
+            margin-top: 30px;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #ffffff;
+            display: none;
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: rgba(44, 62, 80, 0.8);
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        footer a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Eye Disease Detection
+    </header>
+    <div class="container">
+        <h1>Upload an Image for Eye Disease Detection</h1>
+        <form action="/predict" method="post" enctype="multipart/form-data">
+            <div class="form-wrapper">
+                <input type="file" name="file" required>
+            </div>
+            <button type="submit">Upload</button>
+        </form>
+        <div id="result"></div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Eye Disease Detection | <a href="#">Privacy Policy</a></p>
+    </footer>
+    <script>
+        const form = document.querySelector('form');
+        form.onsubmit = async (event) => {
+            event.preventDefault();
+            const formData = new FormData(form);
+            const response = await fetch('/predict', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerText = result.disease || result.error;
+            resultDiv.style.display = 'block';
+        };
+    </script>
+</body>
+</html>
