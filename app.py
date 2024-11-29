@@ -4,8 +4,6 @@ from tensorflow.keras.models import load_model
 import numpy as np
 from PIL import Image
 import pandas as pd
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 # Load your model
 model = load_model(r'C:\Users\Karthik Kondapalli\Desktop\capstone\eye_disease_detection_model.h5')
