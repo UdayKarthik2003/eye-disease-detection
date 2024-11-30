@@ -6,7 +6,7 @@ from PIL import Image
 import pandas as pd
 
 # Load your model
-model = load_model(r'C:\Users\Karthik Kondapalli\Desktop\capstone\eye_disease_detection_model.h5')
+model = load_model(r'./eye_disease_detection_model.h5')
   # Update with your model file
 
 # Initialize Flask app
